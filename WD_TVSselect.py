@@ -1,22 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 # 匯入必要套件
 import os
 import pandas as pd
 
-
-# In[2]:
-
-
 print("=== TVS 測試資料輸入程式 ===")
-
-
-# In[3]:
-
 
 # 1. 元件編號選單
 part_list = ["D5094", "D5095", "D9414"]
@@ -34,10 +23,6 @@ while True:
             print("⚠️ 請輸入 1 到 3 之間的數字。") 
     except ValueError:
         print("⚠️ 請輸入整數。")
-
-
-# In[4]:
-
 
 # 設定資料夾路徑
 data_path = "DataSheet"
@@ -57,10 +42,6 @@ if os.path.isfile(file_path):
 else:
     print("檔案不存在，請確認輸入的檔名是否正確。")
 
-
-# In[5]:
-
-
 # 2. Test level (V)
 while True:
     try:
@@ -68,10 +49,6 @@ while True:
         break
     except ValueError:
         print("⚠️ 請輸入有效的數值。")
-
-
-# In[6]:
-
 
 # 3. Test Waveform 選單
 waveforms = ["10/1000us", "1.2/50us (8/20us)", "10/700us (5/320us)"]
@@ -90,10 +67,6 @@ while True:
     except ValueError:
         print("⚠️ 請輸入整數。")
 
-
-# In[7]:
-
-
 # 4. Test resistance
 while True:
     try:
@@ -101,9 +74,6 @@ while True:
         break
     except ValueError:
         print("⚠️ 請輸入有效的數值。")
-
-
-# In[8]:
 
 
 # 5. Use TVS pcs
@@ -115,9 +85,6 @@ while True:
         print("⚠️ 請輸入整數。")
 
 
-# In[9]:
-
-
 # 顯示輸入結果
 print("\n=== 輸入結果 ===")
 print(f"Part number : {part_number}")
@@ -127,16 +94,9 @@ print(f"Test resistance (Ω): {test_resistance}")
 print(f"Use TVS (pcs): {tvs_pcs}")
 
 
-# In[10]:
-
-
 # 計算 Test Current: Test level / Test resistance = Test current
 test_current = test_level/test_resistance
 print(f"Test current (A): {test_current}")
-
-
-# In[11]:
-
 
 # 計算 test Ipp
 #--- 根據 waveform 設定 factor ---
@@ -155,9 +115,6 @@ test_Ipp = factor * test_current / tvs_pcs
 print(f"Test Ipp (A): {test_Ipp}")
 
 
-# In[12]:
-
-
 # 篩選 Ipp 小於 test_Ipp 的元件編號
 filtered = df[df["Ipp"] < test_Ipp]
 
@@ -167,10 +124,3 @@ result = filtered["UniNumber"]
 # 顯示結果
 print("Ipp < test_Ipp 對應的 UniNumber：")
 print(result.to_list())
-
-
-# In[ ]:
-
-
-
-
